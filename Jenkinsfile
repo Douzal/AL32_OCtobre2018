@@ -21,9 +21,9 @@ pipeline {
             credentialsId: 'idNexus',
             groupId: 'jpetstore',
             nexusUrl: 'localhost:8081/',
-            nexusVersion('nexus3'),
+            nexusVersion:     'nexus3',
             protocol: 'http',
-            repository: 'maven-snapshots'),
+            repository: 'maven-snapshots',
             version: '1.0-SNAPSHOT'
             }
         }
