@@ -15,21 +15,17 @@ pipeline {
 // Rajout dans le Jenkinsfile
     stage('Publication') {
         steps {
-          nexusArtifactUploader {
-            nexusVersion('nexus3')
-            protocol('http')
-            nexusUrl('localhost:8081/')
-            groupId('jpetstore')
-            version('1.0')
-            repository('maven-snapshots')
-            credentialsId('idNexus')
-            artifact {
-                artifactId('jpetstore')
-                type('war')
-                classifier('debug')
-                file('target/jpetstore.war')
+          nexusArtifactUploader artifacts: [
+            [artifactId: 'jpetstore', classifier: 'debug', file: 'target/jpetstore.war', type: 'war']
+          ],
+            credentialsId: 'idNexus',
+            groupId: 'jpetstore',
+            nexusUrl: 'localhost:8081/',
+            nexusVersion('nexus3'),
+            protocol: 'http',
+            repository: 'maven-snapshots'),
+            version: '1.0-SNAPSHOT'
             }
-          }
         }
     }
   }
