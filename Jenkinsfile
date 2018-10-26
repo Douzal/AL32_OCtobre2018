@@ -15,11 +15,21 @@ pipeline {
     //rajout qualimetrie
     stage('qualimetrie') {
       steps {
-        bat(script: 'mvnrun.bat', encoding: 'utf-8')
+        withSonarQubeEnv('Sonar') {
+          bat(script: 'runqualim.bat', encoding: 'utf-8')
+        }
+      }
+    }
+    // et rajout quality gate
+    stage('quality gate') {
+      steps {
+        timeout(time: 10, unit:'MINUTES') {
+          waitForQualityGate(abortPipeline: true)
+        }
       }
     }
 
-// Rajout dans le Jenkinsfile
+    // Rajout dans le Jenkinsfile
     stage('Publication') {
         steps {
           nexusArtifactUploader artifacts: [
