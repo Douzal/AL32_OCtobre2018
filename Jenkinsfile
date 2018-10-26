@@ -11,6 +11,13 @@ pipeline {
         bat(script: 'mvnrun.bat', encoding: 'utf-8')
       }
     }
+    
+    //rajout qualimetrie
+    stage('qualimetrie') {
+      steps {
+        bat(script: 'mvnrun.bat', encoding: 'utf-8')
+      }
+    }
 
 // Rajout dans le Jenkinsfile
     stage('Publication') {
